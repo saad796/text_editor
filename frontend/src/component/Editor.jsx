@@ -7,47 +7,56 @@ function Editor() {
   const [loader,setLoader] = useState(false)
 
   var toolbarOptions = [
-    ['bold', 'italic', 'underline', 'strike'], ['link', 'image'],       // toggled buttons
+    ['bold', 'italic', 'underline', 'strike'], ['link', 'image'],       
     ['blockquote', 'code-block'],
   
-    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'header': 1 }, { 'header': 2 }],               
     [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-    [{ 'direction': 'rtl' }],                         // text direction
+    [{ 'script': 'sub'}, { 'script': 'super' }],      
+    [{ 'indent': '-1'}, { 'indent': '+1' }],          
+    [{ 'direction': 'rtl' }],                         
   
-    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'size': ['small', false, 'large', 'huge'] }],  
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
   
-    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'color': [] }, { 'background': [] }],          
     [{ 'font': [] }],
     [{ 'align': [] }],
   
-    ['clean']                                         // remove formatting button
+    ['clean']                                        
   ];
 
   const modules = {
     toolbar:toolbarOptions
   }
 
+  const sendDataToServer = async () => {
+    try {
+      const response = await fetch('/publish', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ content: text }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Data sent successfully:', data);
+      } else {
+        console.error('Error sending data:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error sending data:', error);
+    }
+  };
+
   const submiText = async (e)=>{
     setLoader(true)
-    // const data =  JSON.stringify(text)
-    // const result = await fetch("http://localhost:8000/publish",{
-    //     method : "POST",
-    //   headers : {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body : data
-    // })
+    
+    await sendDataToServer();
 
-    // if(!result.ok){
-    //     throw new Error("Unfortunatly! Couldn't make request to server.Please try again")
-    // }
-    // console.log(await result.json());
-    setTimeout(()=>{
-        setLoader(false)
-    },3000)
+    setLoader(false)
 
   }
 
