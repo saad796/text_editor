@@ -31,7 +31,7 @@ function Blog() {
     <div>
       {blogArr.map((ele ,ind)=>{
         let id = `blog${ind}`
-        return (<div id={id}>{Parser(ele)}</div>)
+        return (<div id={id} className='ql-editor'>{Parser(ele)}</div>)
       })}
     </div>
   )
