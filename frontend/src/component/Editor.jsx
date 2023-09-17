@@ -4,7 +4,9 @@ import 'react-quill/dist/quill.snow.css';
 
 function Editor() {
   const [text, setText] = useState('');
-  const [loader,setLoader] = useState(false)
+  const [author, setAuthor] = useState('');
+  const [loader,setLoader] = useState(false);
+  const [sendStatus , setSendStatus] = useState("")
 
   var toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'], ['link', 'image'],       
@@ -31,39 +33,47 @@ function Editor() {
   }
 
   const sendDataToServer = async () => {
+    const dataToSent  = { content: text , author : author }
     try {
       const response = await fetch('/publish', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ content: text }),
+        body: JSON.stringify(dataToSent),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         console.log('Data sent successfully:', data);
       } else {
-        console.error('Error sending data:', response.statusText);
+        console.error('Error sending:', response.statusText);
       }
+      return (data)
     } catch (error) {
       console.error('Error sending data:', error);
+      return ({status : false})
     }
   };
 
   const submiText = async (e)=>{
     setLoader(true)
     
-    await sendDataToServer();
-
+    const status = await sendDataToServer();
+    console.log("",status.status);
+    setSendStatus(status.status)
     setLoader(false)
 
+  }
+
+  const changeAuthor = (e)=>{
+    setAuthor(()=>e.target.value)
   }
 
   return(
   <>
     {loader ? <h1>Publishing</h1>:
     <>
+        <input type='text' placeholder='Author name' value={author}  onChange={changeAuthor} />
         <ReactQuill modules={modules} theme="snow" value={text} onChange={setText} />
         <button className='publish-btn' onClick={submiText}>Publish</button>
     </>

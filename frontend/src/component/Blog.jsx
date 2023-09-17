@@ -17,7 +17,7 @@ function Blog() {
               setBlogArr(data.blog)
               console.log('Data get successfully:', data);
             } else {
-              console.error('Error geting data:', response.statusText);
+              console.error('Error geting:', response.statusText);
             }
           } catch (error) {
             console.error('Error geting data:', error);
@@ -31,7 +31,7 @@ function Blog() {
     <div>
       {blogArr.map((ele ,ind)=>{
         let id = `blog${ind}`
-        return (<div id={id} className='ql-editor'>{Parser(ele)}</div>)
+        return (<div className='ql-snow'><div id={id} className='ql-editor'>{Parser(ele)}</div></div>)
       })}
     </div>
   )
