@@ -5,6 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 function Editor() {
   const [text, setText] = useState('');
   const [author, setAuthor] = useState('');
+  const [title, setTitle] = useState('');
   const [loader,setLoader] = useState(false);
   const [sendStatus , setSendStatus] = useState("")
 
@@ -33,7 +34,7 @@ function Editor() {
   }
 
   const sendDataToServer = async () => {
-    const dataToSent  = { content: text , author : author }
+    const dataToSent  = { content: text , author : author , title: title }
     try {
       const response = await fetch('/publish', {
         method: 'POST',
@@ -68,12 +69,16 @@ function Editor() {
   const changeAuthor = (e)=>{
     setAuthor(()=>e.target.value)
   }
+  const changeTitle = (e)=>{
+    setTitle(()=>e.target.value)
+  }
 
   return(
   <>
     {loader ? <h1>Publishing</h1>:
     <>
         <input type='text' className='my-custom-styles' placeholder='Author name' value={author}  onChange={changeAuthor} />
+        <input type='text' className='my-custom-styles' placeholder='blog title' value={title}  onChange={changeTitle} />
         <ReactQuill modules={modules} theme="snow" value={text} onChange={setText} />
         <button className='publish-btn' onClick={submiText}>Publish</button>
     </>

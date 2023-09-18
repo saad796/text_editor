@@ -26,7 +26,8 @@ async function addBlogToDB(data)
 {
     const dbData = {
         blog: data.content,
-        author: data.author
+        author: data.author,
+        title : data.title
     }
     try {
         const blog = new blogModel(dbData);
@@ -50,7 +51,6 @@ async function addBlogToDB(data)
 app.post("/publish",async (req,res)=>{
     console.log("data ",req.body);
     const dbStatus = await addBlogToDB(req.body);
-    blogStore.push(req.body.content)
     if(dbStatus)
     {
         const response = {

@@ -32,9 +32,10 @@ function Blog() {
       {blogArr.map((ele ,ind)=>{
         let id = `blog${ind}`
         return (
-          <div className='ql-snow' key={ele._id}>
-            <p>{ele.author}</p>
-            <small>{ele.createdAt}</small>
+          <div className='ql-snow blog-component' key={ele._id}>
+            <h1>{ele.title}</h1>
+            <p className='author-name'>{ele.author}</p>
+            <small className='publish-date'>{ele.createdAt}</small>
             <div id={id} className='ql-editor'>
               {Parser(ele.blog)}
             </div>

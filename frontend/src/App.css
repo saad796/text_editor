@@ -2,3 +2,26 @@
 {
     font-family: sans-serif;
 }
+
+.blog-component {
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff);
+}
+
+.author-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.publish-date {
+    color: #666;
+}
+
+.author-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.publish-date {
+    font-style: italic;
+    color: #666;
+}
