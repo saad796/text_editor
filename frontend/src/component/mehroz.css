@@ -1,0 +1,36 @@
+.body{
+    margin: 20px;
+}
+.author{
+    width: 15%;
+    height: 30px;
+    border: 1px solid ;
+    border-radius: 3px;
+    
+    
+
+}
+.quill {
+/* padding-top: 20px; */
+padding-bottom: 20px;
+
+}
+.title{  width: 100%;
+    height: 35px;
+    border: 2px solid black;
+    border-radius: 3px;
+
+}
+.publish-btn{
+border: none;
+width: auto;
+padding: 6px;
+border: 1px solid black;
+background-color: cornflowerblue;
+border-radius: 3px;
+color: white;
+}
+.ql-container .ql-blank{
+    height: 200px;
+    border: 2px solid black;
+}

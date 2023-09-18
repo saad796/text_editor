@@ -1,5 +1,6 @@
 
 import './App.css';
+import "./component/mehroz.css"
 import Editor from './component/Editor';
 import Blog from './component/Blog';
 

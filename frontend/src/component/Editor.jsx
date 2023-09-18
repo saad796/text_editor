@@ -77,8 +77,10 @@ function Editor() {
   <>
     {loader ? <h1>Publishing</h1>:
     <>
-        <input type='text' className='my-custom-styles' placeholder='Author name' value={author}  onChange={changeAuthor} />
-        <input type='text' className='my-custom-styles' placeholder='blog title' value={title}  onChange={changeTitle} />
+        <input type='text' className='my-custom-styles author' placeholder='Author name' value={author}  onChange={changeAuthor} />
+     
+        <input type='text' className='my-custom-styles title' placeholder='blog title ' value={title}  onChange={changeTitle} />
+      
         <ReactQuill modules={modules} theme="snow" value={text} onChange={setText} />
         <button className='publish-btn' onClick={submiText}>Publish</button>
     </>
