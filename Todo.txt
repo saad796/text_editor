@@ -1,0 +1,5 @@
+1.Style the blog component
+2.send author name and date from db to server and to client
+additional:
+3.making blog page to show case truncated blog
+4.on click on that blog redirect to whole blog

@@ -2,11 +2,17 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const blogModel = require("./blogSchema")
+const cors = require("cors")
+
 const blogStore = []
 
 const app = express()
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+
+app.use(cors())
+
 
 // database Configuration
 async function connectDB()
@@ -43,11 +49,13 @@ async function addBlogToDB(data)
 
 app.post("/publish",async (req,res)=>{
     console.log("data ",req.body);
-    const dbStatus = await addBlogToDB(req.body)
+    const dbStatus = await addBlogToDB(req.body);
+    blogStore.push(req.body.content)
     if(dbStatus)
     {
         const response = {
             msg:"recieved the request",
+            blog : blogStore,
             status : true
         }
         
@@ -63,9 +71,10 @@ app.post("/publish",async (req,res)=>{
     }
 })
 
-app.get("/blog",(req,res)=>{
+app.get("/blog",async (req,res)=>{
+    const data  = await blogModel.find();
     const result ={
-        blog: blogStore
+        blog: data
     }
     res.status(200).json(result)
 })
